@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Quiz";
+}
+    
+
+
+        <table id="t1">
+            <thead>
+                <tr>
+                    <td>
+                        <h3 class="futura"><b>Verfügbare Quizes</b></h3>
+                    </td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+<<<<<<< HEAD
+                        <h4 class="futura">Länder</h4>
+
+                        <button class="button buttonPadding" onClick="self.location.href='https://localhost:44387/Home/Map'">
+                            <img src="~/Content/media/button_circled.png">
+                        </button>
+
+=======
+                        <h4 class="Comic Sans">Wo liegt was?</h4>
+                        <button class="waves-effect waves-light btn red pulse" style="border-radius: 10px" value="Geografie" onClick="self.location.href='https://localhost:44387/Home/Map'"><i class="material-icons left">landscape</i>ZUM QUIZ</button>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <h4 class="Comic Sans">Um welchen Ort handelt es sich?</h4>
+<<<<<<< HEAD
+                        <button class="waves-effect waves-light btn red" style="border-radius: 10px" value="Ortquiz" onClick="self.location.href='https://localhost:44387/Home/PictureQuiz'"><i class="material-icons left">landscape</i>ZUM QUIZ</button>
+>>>>>>> 0dcde9aff5717dc20147a158dcb53c2b00ce12aa
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4 class="futura">Hauptstätte</h4>
+                        <button class="button buttonPadding">
+                            <img src="~/Content/media/button_circled.png">
+                        </button>
+                                                                           
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4 class="futura">Flaggen</h4>
+                        <button class="button buttonPadding">
+                            <img src="~/Content/media/button_circled.png">
+                        </button>
+
+=======
+                        <button class="waves-effect waves-light btn red pulse" style="border-radius: 10px" value="Ortquiz" onClick="self.location.href='https://localhost:44387/Home/PictureQuiz'"><i class="material-icons left">landscape</i>ZUM QUIZ</button>
+>>>>>>> 91b669c51259bd175fc18ba8f158c514be7b281a
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+
+
+
+  

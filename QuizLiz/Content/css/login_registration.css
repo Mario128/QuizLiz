@@ -1,0 +1,27 @@
+﻿body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+#main_wrapper {
+    height: 100vh;
+}    
+.navbar-fixed {position: absolute;z-index:999999999;} 
+.container{
+    padding-top: 5%;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    width:  25%;
+    height: 60%;
+}
+.card{
+    height: auto;
+    width: auto;
+}

@@ -1,0 +1,51 @@
+﻿@model List<QuizLiz.Models.User>
+@using QuizLiz.Models
+
+@{
+    ViewBag.Title = "Leaderboard";
+}
+
+<body>
+
+    <br />
+    <h3 style="font:bold; font-family:Futura Std, Times New Roman">Top 5</h3>
+    <br />
+
+
+    @if ((Model != null) && (Model.Count > 0))
+    {
+
+
+        <table id="leaderboard_table">
+            <thead>
+            </thead>
+            <tbody>
+                <tr id="leaderboard_tr">
+                    <td class ="center">Rank</td>
+                    <td class ="center">Username</td>
+                    <td class ="center">Score</td>
+                </tr>
+                @{int i = 0; }
+                @foreach (User u in Model)
+                {
+                    i++; 
+                    <tr>
+                        <td class="center">@i</td>
+                        <td class="center">@u.Username</td>
+                        <td class="center">@u.Highscore</td>
+                    </tr>
+                }
+            </tbody>
+          
+        </table>
+    }
+    else
+    {
+        <p>
+            Keine Spieler vorhanden
+        </p>
+    }
+</body>
+<br />
+<p style="font-family:'Futura Std', 'Times New Roman'">Info: Der Score 
+entspricht der Anzahl richtig beantworteter Fragen aus dem Quiz "Wo Liegt was?"</p>

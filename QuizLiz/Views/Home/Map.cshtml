@@ -1,0 +1,168 @@
+﻿@model QuizLiz.Models.Question
+
+<h3 style="font-family:Futura Std" id="feedback"></h3>
+<h3 style="font-family:Futura Std">Frage <span id="attempts">1</span> von 5:</h3>
+<h3 style="font-family:Futura Std">Wo liegt <span id="country"></span></h3>
+
+
+<script>
+    document.getElementById('country').innerHTML = "@ViewBag.Label" + " ?";
+    if (sessionStorage.getItem("attempts") != null) {
+        document.getElementById('attempts').innerHTML = sessionStorage.getItem("attempts");
+    }
+    if (sessionStorage.getItem("feedback") != null) {
+        document.getElementById('feedback').innerHTML = sessionStorage.getItem("feedback");
+        sessionStorage.removeItem("feedback")
+    }
+
+</script>
+
+
+<div class="map_test">
+    <div class="map" id="map"></div>
+</div>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=.......&callback=initMap&libraries=geometry"
+        async defer></script>
+
+<script>
+
+        var mapStyle = [
+            {
+                featureType: "administrative",
+                elementType: "labels",
+                stylers: [
+                    { visibility: "off" }
+                ]
+            }, {
+                featureType: "poi",
+                elementType: "labels",
+                stylers: [
+                    { visibility: "off" }
+                ]
+            }, {
+                featureType: "water",
+                elementType: "labels",
+                stylers: [
+                    { visibility: "off" }
+                ]
+            }, {
+                featureType: "road",
+                elementType: "labels",
+                stylers: [
+                    { visibility: "off" }
+                ]
+            }
+        ]
+
+        var map;
+        var markerPlacements = 1;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 0, lng: 0},
+                zoom: 3
+            });
+        
+            google.maps.event.addListener(map, 'click', function (event) {
+                if (markerPlacements >= 1) {
+
+                    var marker = new google.maps.Marker({
+                        position: event.latLng,
+                        map: map,
+                    });
+
+                    markerPlacements = 0;
+
+                    getCountryCode(event.latLng.lat(), event.latLng.lng());
+                }
+            });
+            map.set('styles', mapStyle);
+        }
+
+        //function getCountryCode(latitude, longitude) {
+        //    $.getJSON('https://api.geonames.org/countryCode', {
+        //        lat: latitude,
+        //        lng: longitude,
+        //        type: 'JSON',
+        //        username: 'mario123'
+
+        //    }, function (result) {
+        //        console.log("RESULT:" + result);
+        //            console.log(result.countryCode);
+        //            alert("RESULT:" + result);
+        //            alert(result.countryCode);
+        //    });
+        //}
+
+        function getCountryCode(latitude, longitude) {
+            var geoCoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(latitude, longitude);
+            geoCoder.geocode({
+                location: latlng
+            }, function (results, statusCode) {
+                var lastResult = results.slice(-1)[0];
+
+                if (statusCode == 'OK' && lastResult && 'address_components' in lastResult) {
+                    var country = lastResult.address_components.slice(-1)[0].long_name;
+                    postCountry(String(country));
+                } else {
+                    alert("Fehler, laden sie die Seite bitte erneut");
+                }
+            });
+
+        }
+
+
+        function postCountry(eventCountry) {
+            $.get("/Home/CalculateResult", {
+                eventCountry: eventCountry,
+                actualCountry: "@ViewBag.Label"
+            })
+                .done(function (dataFromServer) {
+                    if (sessionStorage.getItem("attempts") == null)
+                    {
+                        sessionStorage.setItem("attempts", "1");
+                    }
+                    let attempts = parseFloat(sessionStorage.getItem("attempts"));
+
+                    if (attempts < 5) {
+                        attempts = attempts + 1;
+                        sessionStorage.setItem("attempts", String(attempts));
+                        showFeedback(dataFromServer)
+                        location.reload(true);
+                    }
+                    else if (attempts == 5) {
+                        sessionStorage.removeItem("attempts");
+                        sessionStorage.removeItem("feedback");
+                        location.replace("/Home/Result");
+                    }
+                    else {
+                        sessionStorage.removeItem("attempts");
+                        alert("Irgendetwas ist schiefgelaufen, bitte versuchen Sie" 
+                           + "es erneut oder aktualiesieren Sie die Seite")
+                    }
+
+                }).fail(function () {
+                    alert("Fehler, laden sie die Seite bitte erneut")
+                });
+        }
+
+        function showFeedback(dataFromServer)
+        {
+            if (dataFromServer == "correctAnswer") {
+                sessionStorage.setItem("feedback", "Richtig!");
+            }
+            else if (dataFromServer == "wrongAnswer") {
+                sessionStorage.setItem("feedback", "Leider falsch.");
+            }
+            else {
+                alert("Irgendetwas ist schiefgelaufen, bitte versuchen" 
+                    + "Sie es erneut oder aktualiesieren Sie die Seite");
+                sessionStorage.removeItem("feedback");
+            }
+        }
+
+
+</script>

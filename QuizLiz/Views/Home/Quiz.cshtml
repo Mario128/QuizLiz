@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Quiz";
+}
+    
+
+
+        <table id="t1">
+            <thead>
+                <tr>
+                    <td>
+                        <h3 class="futura"><b>Verfügbare Quizes</b></h3>
+                    </td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+                        <h4 class="Comic Sans">Wo liegt was?</h4>
+                        <button class="waves-effect waves-light btn red pulse" style="border-radius: 10px" value="Geografie" onClick="self.location.href='https://localhost:44387/Home/Map'"><i class="material-icons left">landscape</i>ZUM QUIZ</button>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <h4 class="Comic Sans">Das Ratequiz</h4>
+
+                        <div class="input-field col s3">
+                            <select id="topicSelect">
+                                @foreach (KeyValuePair<int, string> t in ViewBag.Topics)
+                                {
+                                    <option value="@t.Key">@t.Value</option>
+                                }
+                            </select>
+                            <label>Materialize Select</label>
+                        </div>
+                        <br/>
+                        <button class="waves-effect waves-light btn green darken-1 pulse" style="border-radius: 10px" value="Ortquiz" onClick="startQuizOnClick()"><i class="material-icons left">landscape</i>ZUM QUIZ</button>
+                    </td>
+                </tr>
+              
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+
+<script>
+    function startQuizOnClick() {
+        var topicId = $("#topicSelect").val();
+        var path = 'https://localhost:44387/Home/PictureQuiz/' + topicId;
+        self.location.href = path;
+    }
+</script>
+
+  

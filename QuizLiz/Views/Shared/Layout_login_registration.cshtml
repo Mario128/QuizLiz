@@ -1,0 +1,63 @@
+﻿@{
+    string background;
+        background = "/Content/media/stars.jpg";
+    
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QuizLiz - @ViewBag.Title</title>
+    <meta charset="utf-8" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link href="~/Content/css/materialize.min.css" rel="stylesheet"
+          type="text/css" />
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/js/materialize.min.js"></script>
+    @Styles.Render("~/css/")
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body style="background-image:url('@background')">
+<div class="navbar">
+    <ul class="sidenav" id="mobile_sidenav">
+        <li><a href="#">Über uns</a></li>
+        <li><a href="#">AGB</a></li>
+        <li><a href="#">Kontakt</a></li>
+        <li><a href="#">Kundenbewertungen</a></li>
+    </ul>
+
+    <nav class="transparent z-depth-0">
+        <div class="nav-wrapper">
+            <div class="row">
+                <div class="col s12">
+                    @Html.ActionLink("QUIZLIZ - Learing by Playing", "Index", "Home", null, new { @class = "brand-logo center" })
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="container col s12 m12 l12" style="padding-top: 30%;">
+        @RenderBody()
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/materialize")
+
+<script>
+    $(document).ready(function() {
+
+        $('.sidenav').sidenav();
+       
+    });
+</script>
+</body>
+</html>

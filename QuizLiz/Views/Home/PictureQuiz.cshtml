@@ -1,0 +1,71 @@
+﻿@using QuizLiz.Models.ViewModels
+@model QuizLiz.Models.ViewModels.QuestionViewModel
+
+@{ ViewBag.Title = "QuizLiz"; }
+
+<body style="background-image: url('/Content/media/picturequiz_background3.jpg');">
+    @if ((Model == null))
+    {
+        <p>Aktuell sind keine Bilder vorhanden.</p>
+    }
+    else
+    {
+
+    <div>
+
+    <div class="card col s6 offset-s4 center-align transparent" style="width: 40%; height: 20%;">
+        <div class="card-title btn-group-vertical">
+
+            @if (Session["score"] != null)
+            {
+                int score = Convert.ToInt32(Session["score"]);
+                if (score < 0)
+                {
+                    <h2 style="color: red "> Score: @score</h2>
+                }
+                else
+                {
+                    <h2 style="color: green "> Score: @score</h2>
+                }
+            if (Session["result"] != null)
+            {
+                if ((string)Session["result"] == "Richtig!")
+                {
+                    <h5 style="color:green"> @Session["result"]</h5>
+                }
+                else
+                {
+                     <h5 style="color:red"> @Session["result"]</h5>
+                }
+            }
+}
+            }
+
+            <h4 style="color: azure">UM WAS HANDELT ES SICH HIERBEI?</h4>
+            @{
+                @TempData["feedback"] int index = 0;
+                for (int i = 0; i < 4; i++)
+                {
+                    <a href="?answer=@i">
+                    @if (i == Model.Pos)
+                    {
+
+                        <button type="button" class="btn btn-secondary blue darken-3">@Model.Solution</button> }
+                    else
+                    {
+                        <button type="button" class="btn btn-secondary blue darken-3">@Model.OtherChoices[index]</button>index++;
+
+                    }
+
+
+                </a> } }
+
+        </div> <br />
+        <div class="card-image waves-effect waves-block waves-light" style="border: solid snow 0.7px">
+            <img class="activator" src="http://commons.wikimedia.org/wiki/Special:FilePath/@Model.ImageName" />
+        </div>
+    </div>
+
+</div>}
+
+</body>

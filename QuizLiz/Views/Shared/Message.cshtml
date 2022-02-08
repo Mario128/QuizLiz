@@ -1,0 +1,24 @@
+﻿@model QuizLiz.Models.Message
+
+
+@if(Model  != null)
+{
+    <h4>@Model.Header</h4>
+    if (Model.AdditionalHeader != null)
+    {
+         <h5>@Model.AdditionalHeader</h5>
+    }
+    <p>@Model.MessageText</p>
+    if (Model.Solution != null)
+    {
+        <p>@Model.Solution</p>
+    }
+}
+else 
+{
+    <p>Es existiert keine Nachricht</p>
+}
+
+
+
+

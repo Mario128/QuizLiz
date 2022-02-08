@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Result";
+}
+
+
+<h3>Ergebnis: <span id="e1"></span> / 5</h3>
+
+<script>
+    document.getElementById("e1").innerHTML = " @ViewBag.correctCountries";
+</script>
+
+<h4>@Html.ActionLink("Nochmal spielen", "Map", "Home")</h4>
+

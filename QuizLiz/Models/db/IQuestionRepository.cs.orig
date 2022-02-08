@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using QuizLiz.Models.ViewModels;
+
+namespace QuizLiz.Models.db
+{
+    interface IQuestionRepository
+    {
+
+        void Open();
+        void Close();
+
+        List<Question> GetAllPictures();
+        List<Question> GetPicturesByTopic(/*int tID*/);
+<<<<<<< HEAD
+        Question GetLabel();
+=======
+        QuestionViewModel CreateQuestion();
+
+
+>>>>>>> 91b669c51259bd175fc18ba8f158c514be7b281a
+    }
+}
